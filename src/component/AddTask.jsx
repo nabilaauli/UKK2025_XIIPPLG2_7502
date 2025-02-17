@@ -36,9 +36,9 @@ const AddTask = ({ onAdd }) => {
         style={styles.input}
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)} style={styles.select}>
-        <option value="Belajar">📚 Belajar</option>
-        <option value="Tugas">📖 Tugas</option>
-        <option value="Kesehatan">🏋️ Kesehatan</option>
+        <option value="School">📚 School</option>
+        <option value="Important">📖 Important</option>
+        <option value="Work">🏋️ Work</option>
       </select>
       <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} style={styles.input} />
       <select value={status} onChange={(e) => setStatus(e.target.value)} style={styles.select}>
