@@ -28,7 +28,7 @@ const Home = () => {
         <h2>📌 Menu</h2>
         <ul>
           <li> Home</li>
-          <li> Logout</li>
+          <li> Profile</li>
         </ul>
       </aside>
 

@@ -83,7 +83,7 @@ const styles = {
   },
   deleteButton: {
     padding: "8px",
-    backgroundColor: "#ff1744",
+    backgroundColor: "#FE5050",
     color: "white",
     border: "none",
     borderRadius: "5px",
