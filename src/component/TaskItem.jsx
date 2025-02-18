@@ -62,7 +62,7 @@ const TaskItem = ({ task, onEdit, onDelete }) => {
             <button
               onClick={() => onDelete(task.id)}
               style={styles.deleteButton}>
-              🗑️ Hapus
+              🗑️ delete
             </button>
           </>
         )}
@@ -83,7 +83,7 @@ const styles = {
   },
   deleteButton: {
     padding: "8px",
-    backgroundColor: "#FF4500",
+    backgroundColor: "#ff1744",
     color: "white",
     border: "none",
     borderRadius: "5px",
