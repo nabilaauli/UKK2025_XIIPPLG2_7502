@@ -48,9 +48,9 @@ const AddTask = ({ onAdd }) => {
       </select>
 
       <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} style={styles.select}>
-        <option value="Mudah">🟢 Mudah</option>
-        <option value="Sedang">🟠 Sedang</option>
-        <option value="Sulit">🔴 Sulit</option>
+        <option value="Mudah">🟢 bukan prioritas</option>
+        <option value="Sedang">🟠 prioritas Sedang</option>
+        <option value="Sulit">🔴 prioritas utama</option>
       </select>
       
       <button type="submit" style={styles.button}>➕ Tambah</button>

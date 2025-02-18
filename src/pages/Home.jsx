@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddTask from "../component/AddTask";
 import TaskItem from "../component/TaskItem";
-  
+
 const Home = () => {
   const [tasks, setTasks] = useState([]);
 
