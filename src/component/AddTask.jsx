@@ -5,7 +5,7 @@ const AddTask = ({ onAdd }) => {
   const [category, setCategory] = useState("School");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("Belum Selesai");
-  const [difficulty, setDifficulty] = useState("Mudah");
+  const [difficulty, setDifficulty] = useState("bukan prioritas");
  
 
   const handleSubmit = (e) => {
@@ -24,7 +24,7 @@ const AddTask = ({ onAdd }) => {
     onAdd(newTask);
     setTitle("");
     setDeadline("");
-    setDifficulty("Mudah");
+    setDifficulty("bukan prioritas ");
   };
 
   return (
@@ -48,9 +48,9 @@ const AddTask = ({ onAdd }) => {
       </select>
 
       <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} style={styles.select}>
-        <option value="Mudah">🟢 bukan prioritas</option>
-        <option value="Sedang">🟠 prioritas Sedang</option>
-        <option value="Sulit">🔴 prioritas utama</option>
+        <option value="bukan prioritas">🟢 bukan prioritas</option>
+        <option value="prioritas sedang">🟠 prioritas sedang</option>
+        <option value="prioritas utama">🔴 prioritas utama</option>
       </select>
       
       <button type="submit" style={styles.button}>➕ Tambah</button>

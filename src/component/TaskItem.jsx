@@ -38,9 +38,9 @@ const TaskItem = ({ task, onEdit, onDelete }) => {
             <option value="Selesai">✅ Selesai</option>
           </select>
           <select value={updatedDifficulty} onChange={(e) => setUpdatedDifficulty(e.target.value)}>
-            <option value="Mudah">🟢 bukan prioritas</option>
-            <option value="Sedang">🟠 prioritas Sedang</option>
-            <option value="Sulit">🔴 prioritas utama </option>
+            <option value="bukan prioritas">🟢 bukan prioritas</option>
+            <option value="prioritas sedang">🟠 prioritas sedang</option>
+            <option value="prioritas utama">🔴 prioritas utama </option>
           </select>
           <button onClick={handleSave} style={styles.saveButton}>✅ Simpan</button>
         </div>
