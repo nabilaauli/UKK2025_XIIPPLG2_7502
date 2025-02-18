@@ -19,7 +19,9 @@ const Home = () => {
       )
     );
   };
-
+  const handleDeleteTask = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
   return (
     <div style={styles.container}>
       <aside style={styles.sidebar}>
@@ -35,7 +37,7 @@ const Home = () => {
         <AddTask onAdd={handleAddTask} />
         <div style={styles.taskList}>
           {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} onEdit={handleEditTask} />
+            <TaskItem key={task.id} task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
           ))}
         </div>
       </main>
