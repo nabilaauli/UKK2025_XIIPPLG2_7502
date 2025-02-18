@@ -2,10 +2,11 @@ import React, { useState } from "react";
 
 const AddTask = ({ onAdd }) => {
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("Belajar");
+  const [category, setCategory] = useState("School");
   const [deadline, setDeadline] = useState("");
   const [status, setStatus] = useState("Belum Selesai");
   const [difficulty, setDifficulty] = useState("Mudah");
+ 
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,11 +46,13 @@ const AddTask = ({ onAdd }) => {
         <option value="Belum Selesai">❌ Belum Selesai</option>
         <option value="Selesai">✅ Selesai</option>
       </select>
+
       <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} style={styles.select}>
         <option value="Mudah">🟢 Mudah</option>
         <option value="Sedang">🟠 Sedang</option>
         <option value="Sulit">🔴 Sulit</option>
       </select>
+      
       <button type="submit" style={styles.button}>➕ Tambah</button>
     </form>
   );

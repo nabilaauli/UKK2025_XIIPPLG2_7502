@@ -1,7 +1,7 @@
 .sidebar {
-    width: 200px; /* Sidebar lebih kecil */
+    width: 200px;
     height: 100vh;
-    background-color: #d1b3ff; /* Ungu muda */
+    background-color: #d1b3ff;
     color: white;
     display: flex;
     flex-direction: column;
@@ -18,7 +18,7 @@
   .sidebar-menu {
     list-style: none;
     padding: 0;
-    margin-top: 10px; /* Naikkan menu ke atas */
+    margin-top: 10px; 
   }
   
   .sidebar-menu li {
@@ -28,7 +28,7 @@
   }
   
   .sidebar-menu li:hover {
-    background-color: #b39ddb; /* Ungu lebih soft */
+    background-color: #b39ddb; 
   }
   
   .sidebar-menu a {
@@ -38,7 +38,7 @@
     font-size: 14px;
   }
   
-  /* Tambahkan margin ke footer agar tidak terlalu bawah */
+
   .sidebar-footer {
     text-align: center;
     margin-top: auto;

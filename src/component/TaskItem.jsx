@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const TaskItem = ({ task, onEdit }) => {
+const TaskItem = ({ task, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(task.title);
   const [updatedDeadline, setUpdatedDeadline] = useState(task.deadline);
@@ -21,15 +21,16 @@ const TaskItem = ({ task, onEdit }) => {
       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
       display: "flex",
       justifyContent: "space-between",
-      alignItems: "center"
+      alignItems: "center",
+      marginBottom: "10px"
     }}>
       {isEditing ? (
         <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
           <input type="text" value={updatedTitle} onChange={(e) => setUpdatedTitle(e.target.value)} />
           <select value={updatedCategory} onChange={(e) => setUpdatedCategory(e.target.value)}>
-            <option value="Belajar">📚 Belajar</option>
-            <option value="Tugas">📖 Tugas</option>
-            <option value="Kesehatan">🏋️ Kesehatan</option>
+          <option value="School">🏫 School</option>
+          <option value="Important">⚠️ Important</option>
+        < option value="Work">👷🏻‍♂️ Work</option>
           </select>
           <input type="date" value={updatedDeadline} onChange={(e) => setUpdatedDeadline(e.target.value)} />
           <select value={updatedStatus} onChange={(e) => setUpdatedStatus(e.target.value)}>
@@ -41,7 +42,7 @@ const TaskItem = ({ task, onEdit }) => {
             <option value="Sedang">🟠 Sedang</option>
             <option value="Sulit">🔴 Sulit</option>
           </select>
-          <button onClick={handleSave}>✅ Simpan</button>
+          <button onClick={handleSave} style={styles.saveButton}>✅ Simpan</button>
         </div>
       ) : (
         <div>
@@ -52,23 +53,51 @@ const TaskItem = ({ task, onEdit }) => {
 
       <div>
         {!isEditing && (
-          <button
-            onClick={() => setIsEditing(true)}
-            style={{
-              padding: "8px",
-              backgroundColor: "#FFD700",
-              color: "black",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              marginRight: "5px",
-            }}>
-            ✏️ Edit
-          </button>
+          <>
+            <button
+              onClick={() => setIsEditing(true)}
+              style={styles.editButton}>
+              ✏️ Edit
+            </button>
+            <button
+              onClick={() => onDelete(task.id)}
+              style={styles.deleteButton}>
+              🗑️ Hapus
+            </button>
+          </>
         )}
       </div>
     </div>
   );
+};
+
+const styles = {
+  editButton: {
+    padding: "8px",
+    backgroundColor: "#FFD700",
+    color: "black",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginRight: "5px",
+  },
+  deleteButton: {
+    padding: "8px",
+    backgroundColor: "#FF4500",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+  },
+  saveButton: {
+    padding: "8px",
+    backgroundColor: "#32CD32",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    marginTop: "5px",
+  }
 };
 
 export default TaskItem;

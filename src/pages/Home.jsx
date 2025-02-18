@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddTask from "../component/AddTask";
 import TaskItem from "../component/TaskItem";
-
+  
 const Home = () => {
   const [tasks, setTasks] = useState([]);
 
@@ -25,8 +25,8 @@ const Home = () => {
       <aside style={styles.sidebar}>
         <h2>📌 Menu</h2>
         <ul>
-          <li>🏠 Home</li>
-          <li>📋 Tasks</li>
+          <li> Home</li>
+          <li> Logout</li>
         </ul>
       </aside>
 
