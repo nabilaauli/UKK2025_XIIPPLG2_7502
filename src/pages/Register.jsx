@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Register.css"; 
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -19,19 +20,17 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-purple-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-center text-2xl font-bold text-purple-700 mb-6">
-            Register
-        </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div className="register-container">
+      <div className="register-box">
+        <h2>Register</h2>
+        <form onSubmit={handleSubmit} className="register-form">
           <input
             type="text"
             name="username"
             placeholder="Username"
             value={formData.username}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="register-input"
             required
           />
           <input
@@ -40,7 +39,7 @@ const Register = () => {
             placeholder="Email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="register-input"
             required
           />
           <input
@@ -49,7 +48,7 @@ const Register = () => {
             placeholder="Name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="register-input"
             required
           />
           <input
@@ -58,7 +57,7 @@ const Register = () => {
             placeholder="Password"
             value={formData.password}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="register-input"
             required
           />
           <input
@@ -67,13 +66,10 @@ const Register = () => {
             placeholder="Confirmation"
             value={formData.confirmation}
             onChange={handleChange}
-            className="w-full p-2 border rounded"
+            className="register-input"
             required
           />
-          <button
-            type="submit"
-            className="w-full bg-purple-600 text-white py-2 rounded hover:bg-purple-700 transition"
-          >
+          <button type="submit" className="register-button">
             Register
           </button>
         </form>

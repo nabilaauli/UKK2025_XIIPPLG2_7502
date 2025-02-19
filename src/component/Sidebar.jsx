@@ -1,23 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./Sidebar.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    
+    navigate("/login");
+  };
+
   return (
     <div className="sidebar">
-      <div className="sidebar-header">tess</div>
-      <ul className="sidebar-menu">
+      <h2>📌 menu</h2>
+      <ul>
+        <li><Link to="/home">🏠 Home</Link></li>
+        <li><Link to="/profile">👤 Profile</Link></li>
         <li>
-          <Link to="/home">🏠 Home</Link>
-        </li>
-        <li>
-          <Link to="/tasks">📋 Tasks</Link>
+          <button onClick={handleLogout} style={{ background: "transparent", border: "none", color: "white" }}>
+            🚪 Logout
+          </button>
         </li>
       </ul>
-      <div className="sidebar-footer">
-        <div className="profile-circle">V</div>
-        <span>Nabil caca</span>
-      </div>
     </div>
   );
 };

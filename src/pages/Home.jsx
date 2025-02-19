@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import AddTask from "../component/AddTask";
 import TaskItem from "../component/TaskItem";
+import Sidebar from "../component/Sidebar";
+import "../pages/Home.css"; 
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
-
 
   const handleAddTask = (newTask) => {
     setTasks([...tasks, newTask]);
@@ -19,23 +20,19 @@ const Home = () => {
       )
     );
   };
+
   const handleDeleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
-  return (
-    <div style={styles.container}>
-      <aside style={styles.sidebar}>
-        <h2>📌 Menu</h2>
-        <ul>
-          <li> Home</li>
-          <li> Profile</li>
-        </ul>
-      </aside>
 
-      <main style={styles.main}>
+  return (
+    <div className="home-container">
+      <Sidebar /> {}
+
+      <main className="main-content">
         <h1>📅 To-Do List</h1>
         <AddTask onAdd={handleAddTask} />
-        <div style={styles.taskList}>
+        <div className="task-list">
           {tasks.map((task) => (
             <TaskItem key={task.id} task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
           ))}
@@ -43,13 +40,6 @@ const Home = () => {
       </main>
     </div>
   );
-};
-
-const styles = {
-  container: { display: "flex", height: "100vh", backgroundColor: "#f5e6ff" },
-  sidebar: { width: "200px", padding: "20px", backgroundColor: "#a68ee6", color: "white" },
-  main: { flex: 1, padding: "20px" },
-  taskList: { marginTop: "20px", display: "grid", gap: "10px" },
 };
 
 export default Home;
