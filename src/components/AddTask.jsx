@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { TextField, Select, MenuItem, Button, Grid, Paper } from "@mui/material";
 
 const AddTask = ({ onAdd }) => {
   const [title, setTitle] = useState("");
@@ -21,73 +22,56 @@ const AddTask = ({ onAdd }) => {
     onAdd(newTask);
     setTitle("");
     setCategory("");
+    setStatus("Belum Selesai");
     setDifficulty("bukan prioritas");
   };
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <input
-        type="text"
-        placeholder="Judul tugas..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        style={styles.input}
-        required
-      />
-      <input
-        type="text"
-        placeholder="Kategori tugas..."
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        style={styles.input}
-        required
-      />
-      <select value={status} onChange={(e) => setStatus(e.target.value)} style={styles.select}>
-        <option value="Belum Selesai">❌ Belum Selesai</option>
-        <option value="Selesai">✅ Selesai</option>
-      </select>
-      <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} style={styles.select}>
-        <option value="bukan prioritas">🟢 bukan prioritas</option>
-        <option value="prioritas sedang">🟠 prioritas sedang</option>
-        <option value="prioritas utama">🔴 prioritas utama</option>
-      </select>
-      <button type="submit" style={styles.button}>➕ Tambah</button>
-    </form>
+    <Paper elevation={2} sx={{ p: 2, mb: 2, mx: "auto", width: "90%", maxWidth: "1000px" }}>
+      <form onSubmit={handleSubmit}>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item xs={3}>
+            <TextField
+              label="Judul"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              fullWidth
+              required
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={3}>
+            <TextField
+              label="Kategori"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              fullWidth
+              required
+              size="small"
+            />
+          </Grid>
+          <Grid item xs={2}>
+            <Select value={status} onChange={(e) => setStatus(e.target.value)} fullWidth size="small">
+              <MenuItem value="Belum Selesai">❌ Belum Selesai</MenuItem>
+              <MenuItem value="Selesai">✅ Selesai</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={2}>
+            <Select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} fullWidth size="small">
+              <MenuItem value="bukan prioritas">🟢 Bukan Prioritas</MenuItem>
+              <MenuItem value="prioritas sedang">🟠 Prioritas Sedang</MenuItem>
+              <MenuItem value="prioritas utama">🔴 Prioritas Utama</MenuItem>
+            </Select>
+          </Grid>
+          <Grid item xs={2}>
+            <Button type="submit" variant="contained" color="primary" fullWidth size="small">
+              ➕ Tambah
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    </Paper>
   );
-};
-
-const styles = {
-  form: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "10px",
-    padding: "15px",
-    backgroundColor: "white",
-    borderRadius: "8px",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    alignItems: "center",
-  },
-  input: {
-    padding: "8px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-    flex: 1,
-    minWidth: "120px",
-  },
-  select: {
-    padding: "8px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-    minWidth: "140px",
-  },
-  button: {
-    backgroundColor: "#6a0dad",
-    color: "white",
-    padding: "8px 15px",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
 };
 
 export default AddTask;

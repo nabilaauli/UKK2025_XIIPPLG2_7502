@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; 
-import "./Login.css"; 
-import API from "../services/api";
+import API from "../services/api"; 
 import axios from "axios";
 
 const Login = () => {
@@ -9,29 +8,17 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    axios.post(API.Login, {
-      firstName: 'Fred',
-      lastName: 'Flintstone'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-
-    if (username === "" && password === "") {
-      localStorage.setItem("token", "dummy-token");
-      navigate("/home");
-    } else {
+    try {
+      const response = await axios.post(API.Login, { username, password });
+      localStorage.setItem("token", response.data.token);
+      navigate("/home");  
+    } catch (error) {
       alert("Username atau password salah!");
     }
   };
-
-
 
   return (
     <div className="login-container">
@@ -57,10 +44,7 @@ const Login = () => {
           <button type="submit" className="login-button">Login</button>
         </form>
 
-        <button
-          className="login-button"
-          onClick={() => navigate("/register")}  
-        >
+        <button className="login-button" onClick={() => navigate("/register")}>
           Register
         </button>
       </div>
@@ -69,4 +53,3 @@ const Login = () => {
 };
 
 export default Login;
-

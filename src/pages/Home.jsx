@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import AddTask from "../component/AddTask";
-import TaskItem from "../component/TaskItem";
-import Sidebar from "../component/Sidebar";
-
+import { Box, Typography, Paper } from "@mui/material";
+import AddTask from "../components/AddTask";
+import TaskItem from "../components/TaskItem";
+import Sidebar from "../components/Sidebar";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -26,19 +26,23 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container">
-      <Sidebar /> {}
+    <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#f3e8ff" }}>
+      <Sidebar />
 
-      <main className="main-content">
-        <h1>📅 To-Do List</h1>
+      <Box sx={{ flexGrow: 1, p: 3, ml: "120px", textAlign: "center" }}>
+        <Typography variant="h4" gutterBottom>📅 To-Do List</Typography>
+
         <AddTask onAdd={handleAddTask} />
-        <div className="task-list">
+
+        <Box sx={{ mt: 2, display: "grid", gap: 2 }}>
           {tasks.map((task) => (
-            <TaskItem key={task.id} task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+            <Paper key={task.id} sx={{ p: 2 }}>
+              <TaskItem task={task} onEdit={handleEditTask} onDelete={handleDeleteTask} />
+            </Paper>
           ))}
-        </div>
-      </main>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

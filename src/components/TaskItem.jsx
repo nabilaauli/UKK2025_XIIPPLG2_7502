@@ -1,10 +1,11 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Card, CardContent, Typography, TextField, Select, MenuItem, Button, Grid } from "@mui/material";
 
 const TaskItem = ({ task, onEdit, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(task.title);
-  const [updatedStatus, setUpdatedStatus] = useState(task.status);
   const [updatedCategory, setUpdatedCategory] = useState(task.category);
+  const [updatedStatus, setUpdatedStatus] = useState(task.status);
   const [updatedDifficulty, setUpdatedDifficulty] = useState(task.difficulty);
 
   const handleSave = () => {
@@ -13,101 +14,73 @@ const TaskItem = ({ task, onEdit, onDelete }) => {
   };
 
   return (
-    <div style={styles.taskContainer}>
-      {isEditing ? (
-        <div style={styles.editContainer}>
-          <input
-            type="text"
-            value={updatedTitle}
-            onChange={(e) => setUpdatedTitle(e.target.value)}
-            placeholder="Judul tugas"
-            style={styles.inputField}
-          />
-          <input
-            type="text"
-            value={updatedCategory}
-            onChange={(e) => setUpdatedCategory(e.target.value)}
-            placeholder="Masukkan kategori"
-            style={styles.inputField}
-          />
-          <select value={updatedStatus} onChange={(e) => setUpdatedStatus(e.target.value)} style={styles.inputField}>
-            <option value="Belum Selesai">❌ Belum Selesai</option>
-            <option value="Selesai">✅ Selesai</option>
-          </select>
-          <select value={updatedDifficulty} onChange={(e) => setUpdatedDifficulty(e.target.value)} style={styles.inputField}>
-            <option value="bukan prioritas">🟢 bukan prioritas</option>
-            <option value="prioritas sedang">🟠 prioritas sedang</option>
-            <option value="prioritas utama">🔴 prioritas utama</option>
-          </select>
-          <button onClick={handleSave} style={styles.saveButton}>✅ Simpan</button>
-        </div>
-      ) : (
-        <div>
-          <h3>{task.title}</h3>
-          <p>📂 {task.category} | {task.status} | 🎯 {task.difficulty}</p>
-        </div>
-      )}
-
-      <div>
-        {!isEditing && (
-          <>
-            <button onClick={() => setIsEditing(true)} style={styles.editButton}>✏️ Edit</button>
-            <button onClick={() => onDelete(task.id)} style={styles.deleteButton}>🗑️ Delete</button>
-          </>
+    <Card sx={{ mb: 2, mx: "auto", width: "90%", maxWidth: "1000px", boxShadow: 2 }}>
+      <CardContent>
+        {isEditing ? (
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={3}>
+              <TextField
+                label="Judul"
+                value={updatedTitle}
+                onChange={(e) => setUpdatedTitle(e.target.value)}
+                fullWidth
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Kategori"
+                value={updatedCategory}
+                onChange={(e) => setUpdatedCategory(e.target.value)}
+                fullWidth
+                size="small"
+              />
+            </Grid>
+            <Grid item xs={2}>
+              <Select value={updatedStatus} onChange={(e) => setUpdatedStatus(e.target.value)} fullWidth size="small">
+                <MenuItem value="Belum Selesai">❌ Belum Selesai</MenuItem>
+                <MenuItem value="Selesai">✅ Selesai</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={2}>
+              <Select
+                value={updatedDifficulty}
+                onChange={(e) => setUpdatedDifficulty(e.target.value)}
+                fullWidth
+                size="small"
+              >
+                <MenuItem value="bukan prioritas">🟢 Bukan Prioritas</MenuItem>
+                <MenuItem value="prioritas sedang">🟠 Prioritas Sedang</MenuItem>
+                <MenuItem value="prioritas utama">🔴 Prioritas Utama</MenuItem>
+              </Select>
+            </Grid>
+            <Grid item xs={2}>
+              <Button onClick={handleSave} variant="contained" color="success" fullWidth size="small">
+                Simpan
+              </Button>
+            </Grid>
+          </Grid>
+        ) : (
+          <Grid container alignItems="center" justifyContent="space-between">
+            <Grid item xs={8}>
+              <Typography variant="h6">{task.title}</Typography>
+              <Typography variant="body2" color="textSecondary">
+                📂 {task.category} | {task.status} | 🎯 {task.difficulty}
+              </Typography>
+            </Grid>
+            <Grid item xs={4} textAlign="right">
+              <Button onClick={() => setIsEditing(true)} variant="contained" color="warning" size="small" sx={{ mr: 1 }}>
+                Edit
+              </Button>
+              <Button onClick={() => onDelete(task.id)} variant="contained" color="error" size="small">
+                Hapus
+              </Button>
+            </Grid>
+          </Grid>
         )}
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
-};
-
-const styles = {
-  taskContainer: {
-    padding: "15px",
-    borderRadius: "8px",
-    backgroundColor: "white",
-    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "0px"
-  },
-  editContainer: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10px"
-  },
-  inputField: {
-    width: "100%",
-    padding: "8px",
-    borderRadius: "5px",
-    border: "1px solid #ccc",
-    fontSize: "14px"
-  },
-  editButton: {
-    padding: "8px",
-    backgroundColor: "#FFD700",
-    color: "black",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-    marginRight: "5px",
-  },
-  deleteButton: {
-    padding: "8px",
-    backgroundColor: "#FE5050",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  },
-  saveButton: {
-    padding: "8px",
-    backgroundColor: "#32CD32",
-    color: "white",
-    border: "none",
-    borderRadius: "5px",
-    cursor: "pointer",
-  }
 };
 
 export default TaskItem;
