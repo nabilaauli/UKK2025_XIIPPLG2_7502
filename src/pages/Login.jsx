@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; 
-import API from "../services/api"; 
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
@@ -9,14 +7,19 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+
+  const STATIC_CREDENTIALS = {
+    username: "berdina",
+    password: "12345678",
+  };
+
+  const handleLogin = (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios.post(API.Login, { username, password });
-      localStorage.setItem("token", response.data.token);
-      navigate("/home");  
-    } catch (error) {
+    if (username === STATIC_CREDENTIALS.username && password === STATIC_CREDENTIALS.password) {
+      localStorage.setItem("token", "fake-jwt-token");
+      navigate("/home");
+    } else {
       alert("Username atau password salah!");
     }
   };
@@ -53,4 +56,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Login; 
