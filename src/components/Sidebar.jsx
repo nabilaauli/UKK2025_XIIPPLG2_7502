@@ -7,15 +7,15 @@ const Sidebar = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");  
-    navigate("/login");  
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
     <Drawer
       variant="permanent"
       sx={{
-        width: 150, // Lebarin dikit biar nggak terlalu kecil
+        width: 150,
         flexShrink: 0,
         "& .MuiDrawer-paper": {
           width: 150,
@@ -48,7 +48,7 @@ const Sidebar = () => {
         </ListItem>
 
         <ListItem disablePadding>
-          <ListItemButton onClick={handleLogout}>  
+          <ListItemButton onClick={handleLogout}>
             <ListItemIcon sx={{ color: "white" }}>
               <Logout />
             </ListItemIcon>

@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "./Register.css"; 
+import { TextField, Button, Paper, Box, Typography, Alert } from "@mui/material";
 
-const API_URL = ".."; 
-
+const API_URL = ""; 
 const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
@@ -13,8 +12,7 @@ const Register = () => {
     password: "",
     confirmation: "",
   });
-
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,21 +21,40 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
 
     if (formData.password !== formData.confirmation) {
       setError("Password dan konfirmasi harus sama!");
       return;
     }
 
-    try {
-      const response = await axios.post(API_URL, {
-        username: formData.username,
-        email: formData.email,
-        name: formData.name,
-        password: formData.password,
-      });
+    const newUser = {
+      username: formData.username,
+      email: formData.email,
+      name: formData.name,
+      password: formData.password,
+    };
 
-      console.log("Register Success:", response.data);
+    try {
+      if (API_URL) {
+      
+        const response = await axios.post(API_URL, newUser);
+        console.log("Register Success:", response.data);
+      } else {
+      
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const isUserExist = users.some((user) => user.email === newUser.email);
+
+        if (isUserExist) {
+          setError("Email sudah digunakan!");
+          return;
+        }
+
+        users.push(newUser);
+        localStorage.setItem("users", JSON.stringify(users));
+        console.log("User registered locally:", newUser);
+      }
+
       alert("Registrasi berhasil! Silakan login.");
       navigate("/login");
     } catch (err) {
@@ -47,62 +64,20 @@ const Register = () => {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-box">
-        <h2>Register</h2>
-        {error && <p className="register-error">{error}</p>}
-        <form onSubmit={handleSubmit} className="register-form">
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={formData.username}
-            onChange={handleChange}
-            className="register-input"
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-            className="register-input"
-            required
-          />
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-            className="register-input"
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-            className="register-input"
-            required
-          />
-          <input
-            type="password"
-            name="confirmation"
-            placeholder="Confirmation Password"
-            value={formData.confirmation}
-            onChange={handleChange}
-            className="register-input"
-            required
-          />
-          <button type="submit" className="register-button">
-            Register
-          </button>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f3e8ff">
+      <Paper elevation={3} sx={{ padding: 4, borderRadius: 2, textAlign: "center", width: 350 }}>
+        <Typography variant="h5" color="#7b2cbf" gutterBottom>Register</Typography>
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+        <form onSubmit={handleSubmit}>
+          <TextField fullWidth margin="normal" label="Username" name="username" value={formData.username} onChange={handleChange} required />
+          <TextField fullWidth margin="normal" label="Email" name="email" type="email" value={formData.email} onChange={handleChange} required />
+          <TextField fullWidth margin="normal" label="Name" name="name" value={formData.name} onChange={handleChange} required />
+          <TextField fullWidth margin="normal" label="Password" name="password" type="password" value={formData.password} onChange={handleChange} required />
+          <TextField fullWidth margin="normal" label="Confirm Password" name="confirmation" type="password" value={formData.confirmation} onChange={handleChange} required />
+          <Button fullWidth variant="contained" color="primary" type="submit" sx={{ mt: 2, bgcolor: "#7b2cbf" }}>Register</Button>
         </form>
-      </div>
-    </div>
+      </Paper>
+    </Box>
   );
 };
 

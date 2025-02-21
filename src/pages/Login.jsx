@@ -1,59 +1,76 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+import { TextField, Button, Paper, Box, Typography, Alert } from "@mui/material";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
-
-
-  const STATIC_CREDENTIALS = {
-    username: "berdina",
-    password: "12345678",
-  };
 
   const handleLogin = (e) => {
     e.preventDefault();
+    setError("");
 
-    if (username === STATIC_CREDENTIALS.username && password === STATIC_CREDENTIALS.password) {
+   
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find((u) => u.username === username && u.password === password);
+
+    if (user) {
       localStorage.setItem("token", "fake-jwt-token");
       navigate("/home");
     } else {
-      alert("Username atau password salah!");
+      setError("Username atau password salah!");
     }
   };
 
   return (
-    <div className="login-container">
-      <div className="login-box">
-        <h2>Login</h2>
+    <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh" bgcolor="#f3e8ff">
+      <Paper elevation={6} sx={{ padding: 4, borderRadius: 2, width: 320, textAlign: "center" }}>
+        <Typography variant="h5" color="#7b2cbf" fontWeight="bold" mb={2}>
+          Login
+        </Typography>
+        {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
         <form onSubmit={handleLogin}>
-          <input
-            type="text"
-            placeholder="Username"
-            className="input-field"
+          <TextField
+            label="Username"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <input
+          <TextField
+            label="Password"
             type="password"
-            placeholder="Password"
-            className="input-field"
+            variant="outlined"
+            fullWidth
+            margin="normal"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <button type="submit" className="login-button">Login</button>
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{ mt: 2, bgcolor: "#7b2cbf", "&:hover": { bgcolor: "#5a189a" } }}
+          >
+            Login
+          </Button>
         </form>
-
-        <button className="login-button" onClick={() => navigate("/register")}>
+        <Button
+          variant="text"
+          fullWidth
+          sx={{ mt: 1, color: "#7b2cbf" }}
+          onClick={() => navigate("/register")}
+        >
           Register
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Paper>
+    </Box>
   );
 };
 
-export default Login; 
+export default Login;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, TextField, Button, Typography, Paper } from "@mui/material";
+import { Box, TextField, Button, Typography, Paper, Avatar, IconButton } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({
@@ -9,6 +10,7 @@ const Profile = () => {
     name: "User Name",
     password: "",
     confirmation: "",
+    photo: "", 
   });
 
   const [isEditable, setIsEditable] = useState(false);
@@ -28,11 +30,56 @@ const Profile = () => {
     setIsEditable(true);
   };
 
+  const handlePhotoUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileData((prev) => ({ ...prev, photo: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <Box sx={{ display: "flex", justifyContent: "center", mt: 5 }}>
       <Paper elevation={3} sx={{ p: 3, width: 400, textAlign: "center" }}>
         <Typography variant="h5" gutterBottom>Profil</Typography>
+    
+<Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+  <Avatar
+    src={profileData.photo}
+    sx={{ width: 100, height: 100, bgcolor: "#7b2cbf", fontSize: 30 }}
+  >
+    {profileData.name.charAt(0)}
+  </Avatar>
+</Box>
 
+{isEditable && (
+  <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+    <input
+      accept="image/*"
+      type="file"
+      id="photo-upload"
+      style={{ display: "none" }}
+      onChange={handlePhotoUpload}
+    />
+    <label htmlFor="photo-upload">
+      <IconButton color="primary" component="span">
+        <PhotoCamera />
+      </IconButton>
+    </label>
+  </Box>
+)}
+
+        <Box sx={{ display: "flex", justifyContent: "center", mb: 2 }}>
+  <input
+    accept="image/*"
+    type="file"
+    onChange={handlePhotoUpload}
+    style={{ display: "block" }} 
+  />
+</Box>
         <TextField
           label="Username"
           name="username"
