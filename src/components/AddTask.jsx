@@ -33,7 +33,7 @@ const AddTask = ({ onAdd, categories }) => {
           
           <Grid item xs={12} sm={3}>
             <TextField
-              label="Judul"
+              label="Tugas"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               fullWidth
@@ -66,7 +66,7 @@ const AddTask = ({ onAdd, categories }) => {
             </Select>
           </Grid>
 
-          {/* Dropdown Prioritas */}
+         
           <Grid item xs={12} sm={2}>
             <Select value={difficulty} onChange={(e) => setDifficulty(e.target.value)} fullWidth size="small">
               <MenuItem value="bukan prioritas">🟢 Bukan Prioritas</MenuItem>

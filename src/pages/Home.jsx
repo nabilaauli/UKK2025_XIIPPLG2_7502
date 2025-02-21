@@ -4,6 +4,8 @@ import AddTask from "../components/AddTask";
 import TaskItem from "../components/TaskItem";
 import Sidebar from "../components/Sidebar";
 import CategoryManager from "../components/CategoryManager";
+import { jsPDF } from "jspdf";
+import "jspdf-autotable";
 
 const Home = () => {
   const [tasks, setTasks] = useState([]);
@@ -48,41 +50,49 @@ const Home = () => {
     task.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const handlePrintPDF = () => {
+    const doc = new jsPDF();
+    doc.text("Laporan To-Do List", 14, 10);
+
+    const tableColumn = ["Tugas", "Kategori", "Status", "Prioritas"];
+    const tableRows = [];
+
+    filteredTasks.forEach((task) => {
+      const taskData = [task.title, task.category, task.status, task.difficulty];
+      tableRows.push(taskData);
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+    });
+
+    doc.save("To-Do_List_Report.pdf");
+  };
+
   return (
     <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#f3e8ff" }}>
       <Sidebar />
 
       <Box sx={{ flexGrow: 1, p: 3, ml: { xs: 0, md: "160px" }, overflow: "auto" }}>
-        <Typography variant="h4" textAlign="center" gutterBottom>📅 To-Do List</Typography>
+        
+      
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+          <Typography variant="h4" sx={{ width: "100%", textAlign: "center" }}>
+            📅 To-Do List
+          </Typography>
 
-
-        <Box sx={{ display: "flex", justifyContent: "flex-end", mb: 2 }}>
-          <Grid container spacing={1} alignItems="center" sx={{ maxWidth: "300px" }}>
-            <Grid item xs={8}>
-              <TextField
-                label="Cari Tugas..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                fullWidth
-                size="small"
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="small"
-                fullWidth
-                sx={{ py: 0.5, px: 1, minWidth: "40px" }}
-              >
-                🔍 Cari
-              </Button>
-            </Grid>
-          </Grid>
+          <TextField
+            label="Cari Tugas..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            size="small"
+            sx={{ width: 250 }}
+          />
         </Box>
 
         <Grid container spacing={2} sx={{ mt: 1 }}>
-       
           <Grid item xs={12} md={3}>
             <CategoryManager
               categories={categories}
@@ -92,7 +102,6 @@ const Home = () => {
             />
           </Grid>
 
-        
           <Grid item xs={12} md={9}>
             <AddTask onAdd={handleAddTask} categories={categories} />
 
@@ -106,6 +115,19 @@ const Home = () => {
                   categories={categories} 
                 />
               ))}
+            </Box>
+
+         
+            <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="medium"
+                onClick={handlePrintPDF}
+                sx={{ py: 1, px: 3 }}
+              >
+                🖨 Cetak PDF
+              </Button>
             </Box>
           </Grid>
         </Grid>

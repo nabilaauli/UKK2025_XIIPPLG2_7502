@@ -20,7 +20,7 @@ const TaskItem = ({ task, onEdit, onDelete, categories }) => {
         <Grid container spacing={2} alignItems="center">
           <Grid item xs={12} sm={3}>
             <TextField
-              label="Judul"
+              label="Tugas"
               value={updatedTitle}
               onChange={(e) => setUpdatedTitle(e.target.value)}
               fullWidth
